@@ -1,0 +1,34 @@
+server.port: 8081
+
+spring:
+  config:
+    activate.on-profile: default
+  application.name: nunes-sports
+
+  #postgresql
+  jpa:
+    database: POSTGRESQL
+    hibernate.ddl-auto: update
+
+  datasource:
+    url: jdbc:postgresql://${POSTGRESQL_HOST:localhost}:${POSTGRESQL_PORT:5433}/nunes_sports
+    username: ${POSTGRESQL_USER:postgres}
+    password: ${POSTGRESQL_PASSWORD:lavs}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connectionTimeout: 30000
+      idleTimeout: 10000
+      maxLifetime: 60000
+      maximumPoolSize: 8
+      leakDetectionThreshold: 60000
+---
+
+spring:
+  config:
+    activate.on-profile: test
+  jpa:
+    hibernate.ddl-auto: create-drop
+
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=POSTGRESQL
+    username: user
